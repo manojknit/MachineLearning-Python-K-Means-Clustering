@@ -4,10 +4,10 @@ This example explains k-means clustering with Python 3, pandas and scikit-learn 
 ## Requirements
 To use this example you need Python 3 and latest versions of pandas and scikit-learn. I used Anaconda distribution to install.
 
-### Data Set:
+## Data Set:
 https://catalog.data.gov/dataset/2010-census-populations-by-zip-code
 
-### ML life-cycle:
+## ML life-cycle:
 1.	Business objective connected to it.
 2.	Data set, wrangle and prepare it.
 3.	What the data is saying
@@ -18,8 +18,11 @@ https://catalog.data.gov/dataset/2010-census-populations-by-zip-code
 3.	Select the new centroid by taking the average of Euclidean distances of all the points assigned to that cluster.
 4.	Repeat 2 and 3 until clustor assignment stop changing.
 
-### Screenshot</br>
+## Screenshot</br>
 <img src="images/K-Means Clustering 2018-08-25 03-01-14.png">
+
+## Data Story:
+This data is 2010 census data. After clustering using K-Means we plotted data which clearly shows most of the population lies around 38 of median age. As population grows median ages is also changing and its coming down. This model gives idea if business need to manufacture products for ~age of 40 for 20K population, ~age of 39 for next 18K population, ~age of 38 for 18K, ~age of 36 for 24K and age of 32 for 34K.
 
 ## Code: ViewController.swift
 ```
