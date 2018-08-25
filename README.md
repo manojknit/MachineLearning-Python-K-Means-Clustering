@@ -78,4 +78,4 @@ plt.show()
 ```
 
 ## Thank You
-#### [Manoj Kumar](https://www.linkedin.com/in/manojkumar19/)
+
