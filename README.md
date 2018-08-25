@@ -21,5 +21,61 @@ https://catalog.data.gov/dataset/2010-census-populations-by-zip-code
 ### Screenshot</br>
 <img src="images/K-Means Clustering 2018-08-25 03-01-14.png">
 
+## Code: ViewController.swift
+```
+# K-Means Clustering
+
+# Importing the libraries
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Importing the dataset
+dataset = pd.read_csv('2010_Census_Populations.csv')
+#Data Prepare
+# Replacing 0 to NaN
+dataset[['Total Population','Median Age']] = dataset[['Total Population','Median Age']].replace(0, np.NaN)
+X = dataset.iloc[:, [1, 2]].values
+#print(X)
+
+# Taking care of missing data
+from sklearn.preprocessing import Imputer
+imputer = Imputer(missing_values = 'NaN', strategy = 'mean', axis = 0)
+imputer = imputer.fit(X)
+X = imputer.transform(X)
+
+print(X)
+
+# Using the elbow method to get the optimal number of clusters
+from sklearn.cluster import KMeans
+wcss = []
+for i in range(1, 11):
+    kmeans = KMeans(n_clusters = i, init = 'k-means++', random_state = 42)
+    kmeans.fit(X)
+    wcss.append(kmeans.inertia_)
+plt.plot(range(1, 11), wcss)
+plt.title('The Elbow Method showing the optimal K')
+plt.xlabel('K - Number of clusters')
+plt.ylabel('WCSS')
+plt.show()
+
+# Fitting K-Means to the sample dataset
+kmeans = KMeans(n_clusters = 5, init = 'k-means++', random_state = 42)
+y_kmeans = kmeans.fit_predict(X)
+
+# Scatter chart of the clusters
+plt.scatter(X[y_kmeans == 0, 0], X[y_kmeans == 0, 1], s = 50, c = 'gold', label = 'Cluster A')
+plt.scatter(X[y_kmeans == 1, 0], X[y_kmeans == 1, 1], s = 50, c = 'skyblue', label = 'Cluster B')
+plt.scatter(X[y_kmeans == 2, 0], X[y_kmeans == 2, 1], s = 50, c = 'orchid', label = 'Cluster C')
+plt.scatter(X[y_kmeans == 3, 0], X[y_kmeans == 3, 1], s = 50, c = 'mediumspringgreen', label = 'Cluster D')
+plt.scatter(X[y_kmeans == 4, 0], X[y_kmeans == 4, 1], s = 50, c = 'c', label = 'Cluster E')
+plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], s = 200, c = 'red', label = 'Centroids')
+plt.title('Clusters of Population')
+plt.xlabel('Total Population')
+plt.ylabel('Median Age')
+plt.legend()
+plt.show()
+```
+
 ## Thank You
 #### [Manoj Kumar](https://www.linkedin.com/in/manojkumar19/)
